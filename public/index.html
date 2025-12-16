@@ -9,7 +9,30 @@
 </head>
 
 <body>
+  <div id="app"></div>
 
+  <script type="module">
+    import { reactive, html } from 'https://esm.sh/@arrow-js/core';
+
+    const fetchRestaurants = async () => {
+      const rawResponse = await fetch('/api/restaurants');
+      return await rawResponse.json();
+    };
+
+    const restaurants = await fetchRestaurants();
+
+    const RestaurantList = ({ restaurants = [] }) => {
+      return restaurants.map(restaurant => html`
+        <p>${restaurant.name}</p>
+      `);
+    }
+
+    const appElement = document.getElementById('app');
+    const template = html`
+      ${RestaurantList(restaurants)}
+    `
+    template(appElement)
+  </script>
 </body>
 
 </html>
