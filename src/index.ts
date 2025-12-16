@@ -1,13 +1,16 @@
 import express from "express";
 import path from "path";
+import router from "./api";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, "../public")));
 
+app.use("/api", router);
+
 app.get("/", (req, res) => {
-  res.send("Hello, World!");
+  res.send("Use /api.");
 });
 
 app.listen(PORT, () => {
